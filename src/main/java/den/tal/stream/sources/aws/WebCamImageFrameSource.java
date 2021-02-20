@@ -65,14 +65,16 @@ public class WebCamImageFrameSource {
             while (isRunning) {
                 log.debug("Project frame");
                 var image = film.poll();
-                try {
-                    onStreamDataAvailableCallback.onFrameDataAvailable(frameConverter.imageToKinesisFrame(image,
-                            frameIndex++));
+                if (null != image) {
+                    try {
+                        onStreamDataAvailableCallback.onFrameDataAvailable(frameConverter.imageToKinesisFrame(image,
+                                frameIndex++));
 
-                } catch (KinesisVideoException kvex) {
+                    } catch (KinesisVideoException kvex) {
 
-                    throw new RuntimeException(kvex);
+                        throw new RuntimeException(kvex);
 
+                    }
                 }
 
                 try {

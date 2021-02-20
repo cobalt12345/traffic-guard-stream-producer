@@ -15,9 +15,9 @@ public class WebCamMediaSourceConfiguration implements MediaSourceConfiguration 
     @Getter
     private TrackInfo[] trackInfoList;
 
-    @Value("${sources.webcam.device.resolution}")
-    @Getter
-    private WebcamResolution webcamResolution;
+//    @Value("${sources.webcam.device.resolution}")
+//    @Getter
+//    private WebcamResolution webcamResolution;
 
     @Value("${sources.webcam.device.type}")
     @Getter
