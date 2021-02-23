@@ -10,11 +10,15 @@ import java.util.Iterator;
 @Log4j2
 public class StreamProducerStart {
     public static void main(String[] args) throws Exception {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(StreamProducerConfig.class);
-        for (Iterator<String> namesIter = applicationContext.getBeanFactory().getBeanNamesIterator();
-             namesIter.hasNext();) {
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(StreamProducerConfig.class);
 
-            log.debug("Bean: {}", namesIter.next());
+        if (log.isDebugEnabled()) {
+            for (Iterator<String> namesIter = applicationContext.getBeanFactory().getBeanNamesIterator();
+                 namesIter.hasNext(); ) {
+
+                log.debug("Bean: {}", namesIter.next());
+            }
         }
         applicationContext.getBean(StreamProducer.class).startStreaming();
     }

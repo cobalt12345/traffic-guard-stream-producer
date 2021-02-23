@@ -10,9 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 
 @Configuration
-@ComponentScan(basePackages = {"den.tal.stream", "den.tal.stream.sources",
-        "den.tal.stream.sources.aws"})
-@PropertySource("classpath:application.yml")
+@ComponentScan()
 public abstract class StreamProducerConfig {
 
     @Bean
