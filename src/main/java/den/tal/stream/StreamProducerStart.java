@@ -10,7 +10,7 @@ import java.util.Iterator;
 @Log4j2
 public class StreamProducerStart {
     public static void main(String[] args) throws Exception {
-        var applicationContext = new AnnotationConfigApplicationContext(StreamProducerConfig.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(StreamProducerConfig.class);
         for (Iterator<String> namesIter = applicationContext.getBeanFactory().getBeanNamesIterator();
              namesIter.hasNext();) {
 

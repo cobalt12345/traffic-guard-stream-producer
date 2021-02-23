@@ -9,20 +9,19 @@ import com.amazonaws.kinesisvideo.internal.mediasource.DefaultOnStreamDataAvaila
 import com.amazonaws.kinesisvideo.producer.StreamCallbacks;
 import com.amazonaws.kinesisvideo.producer.StreamInfo;
 
-import static com.amazonaws.kinesisvideo.producer.StreamInfo.NalAdaptationFlags.NAL_ADAPTATION_ANNEXB_NALS;
+import static com.amazonaws.kinesisvideo.producer.StreamInfo.NalAdaptationFlags.*;
 import static com.amazonaws.kinesisvideo.producer.StreamInfo.codecIdFromContentType;
 import static com.amazonaws.kinesisvideo.util.StreamInfoConstants.*;
 
 import com.amazonaws.kinesisvideo.producer.Tag;
 import den.tal.stream.sources.WebCam;
 import den.tal.stream.sources.utils.FrameConverter;
+import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @Log4j2
 @Component
@@ -66,7 +65,6 @@ public class WebCamMediaSource implements MediaSource {
 
     @Override
     public StreamInfo getStreamInfo() throws KinesisVideoException {
-
         return new StreamInfo(VERSION_ZERO,
                 kinesisVideoStreamName,
                 StreamInfo.StreamingType.STREAMING_TYPE_NEAR_REALTIME,
@@ -100,7 +98,8 @@ public class WebCamMediaSource implements MediaSource {
 
     @Override
     public void configure(MediaSourceConfiguration mediaSourceConfiguration) {
-        if (mediaSourceConfiguration instanceof WebCamMediaSourceConfiguration wcmsConf) {
+        if (mediaSourceConfiguration instanceof WebCamMediaSourceConfiguration) {
+            WebCamMediaSourceConfiguration wcmsConf = (WebCamMediaSourceConfiguration) mediaSourceConfiguration;
             webCamMediaSourceConfiguration = wcmsConf;
             log.debug("Web Camera source configuration: {}", mediaSourceConfiguration);
         } else {
@@ -110,7 +109,7 @@ public class WebCamMediaSource implements MediaSource {
     }
 
     @Override
-    public void initialize(@Nonnull MediaSourceSink mediaSourceSink) throws KinesisVideoException {
+    public void initialize(@NonNull MediaSourceSink mediaSourceSink) throws KinesisVideoException {
         this.mediaSourceSink = mediaSourceSink;
         mediaSourceState = MediaSourceState.INITIALIZED;
     }
@@ -154,7 +153,6 @@ public class WebCamMediaSource implements MediaSource {
         return mediaSourceSink;
     }
 
-    @Nullable
     @Override
     public StreamCallbacks getStreamCallbacks() {
         return null;

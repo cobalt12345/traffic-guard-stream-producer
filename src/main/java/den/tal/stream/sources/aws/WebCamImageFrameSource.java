@@ -64,7 +64,7 @@ public class WebCamImageFrameSource {
             int frameIndex = 0;
             while (isRunning) {
                 log.debug("Project frame");
-                var image = film.poll();
+                BufferedImage image = film.poll();
                 if (null != image) {
                     try {
                         onStreamDataAvailableCallback.onFrameDataAvailable(frameConverter.imageToKinesisFrame(image,

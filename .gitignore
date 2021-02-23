@@ -40,7 +40,7 @@ gradle-app.setting
 out/
 .idea/
 .idea_modules/
-traffic-guard.iml
+*.iml
 *.ipr
 *.iws
 

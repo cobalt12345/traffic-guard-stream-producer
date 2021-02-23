@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>den.tal</groupId>
-    <artifactId>traffic-guard</artifactId>
+    <artifactId>traffic-guard-stream-producer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Traffic Guard</name>
-    <description>Detect cars and license plates</description>
+    <name>Traffic Guard Stream Producer</name>
+    <description>Sends Frames From Kinesis Video Stream</description>
 
     <properties>
         <java.version>15</java.version>
@@ -31,6 +31,16 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec-javase</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec</artifactId>
+            <version>0.2.5</version>
+        </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
@@ -85,11 +95,6 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>amazon-kinesis-video-streams-producer-sdk-java</artifactId>
             <version>1.9.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>amazon-kinesis-video-streams-parser-library</artifactId>
-            <version>1.0.15</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

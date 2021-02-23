@@ -13,11 +13,11 @@ import org.springframework.core.io.PathResource;
 @ComponentScan(basePackages = {"den.tal.stream", "den.tal.stream.sources",
         "den.tal.stream.sources.aws"})
 @PropertySource("classpath:application.yml")
-public class StreamProducerConfig {
+public abstract class StreamProducerConfig {
 
     @Bean
     public PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
-        var placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(new ClassPathResource("application.yml"));
         placeholderConfigurer.setProperties(yaml.getObject());

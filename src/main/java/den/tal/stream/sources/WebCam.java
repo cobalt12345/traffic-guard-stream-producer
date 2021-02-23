@@ -40,6 +40,9 @@ public class WebCam implements Source {
     @Getter
     private WebcamResolution webcamResolution;
 
+    @Value("${sources.webcam.use_default_when_no_specified_cam_found}")
+    private boolean tryDefaultCameraIfSpecifiedCameraNotFound;
+
     private BlockingQueue<BufferedImage> bufferedImages;
     private ExecutorService streamer;
     private Webcam webcam;
@@ -53,9 +56,16 @@ public class WebCam implements Source {
                 .collect(Collectors.toList()));
 
         if (null == (webcam = Webcam.getWebcamByName(webCamName))) {
-            log.debug("No camera '{}' found. Try to use default camera...", webCamName);
-            webcam = Webcam.getDefault();
+            if (tryDefaultCameraIfSpecifiedCameraNotFound) {
+                log.debug("No camera '{}' found. Try to use default camera...", webCamName);
+                webcam = Webcam.getDefault();
+            } else {
+
+                throw new WebCameraInitializationException(String.format("No camera '%s' found!", webCamName));
+
+            }
         }
+
         if (null == webcam) {
             log.error("Neither '{}', nor default web cameras were found!", webCamName);
 
@@ -81,7 +91,7 @@ public class WebCam implements Source {
     protected class Shooter implements Runnable {
         @Override
         public void run() {
-            var threadName = Thread.currentThread().getName();
+            String threadName = Thread.currentThread().getName();
             while (true) {
                 filmingStarted.lock();
                 try {

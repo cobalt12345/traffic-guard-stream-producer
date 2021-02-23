@@ -4,6 +4,7 @@ import com.amazonaws.kinesisvideo.producer.KinesisVideoFrame;
 import den.tal.stream.sources.aws.WebCamMediaSourceConfiguration;
 import lombok.extern.log4j.Log4j2;
 import org.jcodec.codecs.h264.H264Encoder;
+import org.jcodec.common.VideoEncoder;
 import org.jcodec.common.model.ColorSpace;
 import org.jcodec.common.model.Picture;
 import org.jcodec.scale.AWTUtil;
@@ -40,16 +41,15 @@ public class FrameConverter {
         Picture picture = AWTUtil.fromBufferedImage(image, colorSpace);
         int buffSize = encoder.estimateBufferSize(picture);
         ByteBuffer byteBuffer = ByteBuffer.allocate(buffSize);
-        var encodedFrame = encoder.encodeFrame(picture, byteBuffer);
-
+        ByteBuffer encodedBytes = encoder.encodeIDRFrame(picture, byteBuffer);
         final long currentTimeMs = System.currentTimeMillis();
         final int flag = counter % configuration.getFps() == 0 ? FRAME_FLAG_KEY_FRAME : FRAME_FLAG_NONE;
-        var kinesisVideoFrame = new KinesisVideoFrame(counter,
+        KinesisVideoFrame kinesisVideoFrame = new KinesisVideoFrame(counter,
                 flag,
                 currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 FRAME_DURATION_20_MS * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
-                encodedFrame.getData());
+                encodedBytes);
 
         return kinesisVideoFrame;
     }

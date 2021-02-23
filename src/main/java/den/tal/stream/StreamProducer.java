@@ -1,6 +1,7 @@
 package den.tal.stream;
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.kinesisvideo.client.KinesisVideoClient;
 import com.amazonaws.kinesisvideo.common.exception.KinesisVideoException;
 import com.amazonaws.kinesisvideo.java.client.KinesisVideoJavaClientFactory;
 import com.amazonaws.regions.Regions;
@@ -26,7 +27,7 @@ public class StreamProducer {
     private WebCamMediaSourceConfiguration webCamMediaSourceConfiguration;
 
     public void startStreaming() throws KinesisVideoException {
-        var kinesisVideoClient =
+        KinesisVideoClient kinesisVideoClient =
                 KinesisVideoJavaClientFactory.createKinesisVideoClient(Regions.fromName(awsRegion),
                 new ProfileCredentialsProvider(userProfile));
 
