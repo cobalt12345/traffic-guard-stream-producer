@@ -2,7 +2,6 @@ package den.tal.stream.sources.aws;
 
 import com.amazonaws.kinesisvideo.internal.client.mediasource.MediaSourceConfiguration;
 import com.amazonaws.kinesisvideo.producer.TrackInfo;
-import com.github.sarxos.webcam.WebcamResolution;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +13,6 @@ public class WebCamMediaSourceConfiguration implements MediaSourceConfiguration 
 
     @Getter
     private TrackInfo[] trackInfoList;
-
-//    @Value("${sources.webcam.device.resolution}")
-//    @Getter
-//    private WebcamResolution webcamResolution;
 
     @Value("${sources.webcam.device.type}")
     @Getter

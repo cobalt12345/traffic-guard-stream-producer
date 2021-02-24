@@ -4,7 +4,6 @@ import com.amazonaws.kinesisvideo.producer.KinesisVideoFrame;
 import den.tal.stream.sources.aws.WebCamMediaSourceConfiguration;
 import lombok.extern.log4j.Log4j2;
 import org.jcodec.codecs.h264.H264Encoder;
-import org.jcodec.common.VideoEncoder;
 import org.jcodec.common.model.ColorSpace;
 import org.jcodec.common.model.Picture;
 import org.jcodec.scale.AWTUtil;
