@@ -14,7 +14,7 @@ sources:
             fps: 25
 #            name: "Logitech HD Webcam C270 0"
 #            name: "GENERAL - UVC  1"
-            name: "Hercules Dualpix Exchange 1"
+            name: "Logitech HD Webcam C270 1"
             resolution: VGA
             type: PC Cam
         queue_length: 100
