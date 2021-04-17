@@ -38,14 +38,6 @@ public class WebCamMediaSource implements MediaSource {
     private final String trackName = "RoadTraffic";
     private MediaSourceSink mediaSourceSink;
     private WebCamImageFrameSource webCamImageFrameSource;
-    private static final byte[] AVCC_EXTRA_DATA = {
-            (byte) 0x01, (byte) 0x42, (byte) 0x00, (byte) 0x1E, (byte) 0xFF, (byte) 0xE1, (byte) 0x00, (byte) 0x22,
-            (byte) 0x27, (byte) 0x42, (byte) 0x00, (byte) 0x1E, (byte) 0x89, (byte) 0x8B, (byte) 0x60, (byte) 0x50,
-            (byte) 0x1E, (byte) 0xD8, (byte) 0x08, (byte) 0x80, (byte) 0x00, (byte) 0x13, (byte) 0x88,
-            (byte) 0x00, (byte) 0x03, (byte) 0xD0, (byte) 0x90, (byte) 0x70, (byte) 0x30, (byte) 0x00, (byte) 0x5D,
-            (byte) 0xC0, (byte) 0x00, (byte) 0x17, (byte) 0x70, (byte) 0x5E, (byte) 0xF7, (byte) 0xC1, (byte) 0xF0,
-            (byte) 0x88, (byte) 0x46, (byte) 0xE0, (byte) 0x01, (byte) 0x00, (byte) 0x04, (byte) 0x28, (byte) 0xCE,
-            (byte) 0x1F, (byte) 0x20};
 
     public WebCamMediaSource(WebCam webCam) {
         this.webCam = webCam;
@@ -66,7 +58,7 @@ public class WebCamMediaSource implements MediaSource {
     public StreamInfo getStreamInfo() throws KinesisVideoException {
         return new StreamInfo(VERSION_ZERO,
                 kinesisVideoStreamName,
-                StreamInfo.StreamingType.STREAMING_TYPE_NEAR_REALTIME,
+                StreamInfo.StreamingType.STREAMING_TYPE_REALTIME,
                 webCamMediaSourceConfiguration.getContentType(),
                 NO_KMS_KEY_ID,
                 RETENTION_ONE_HOUR,
@@ -87,7 +79,7 @@ public class WebCamMediaSource implements MediaSource {
                 DEFAULT_STALENESS_DURATION,
                 DEFAULT_TIMESCALE,
                 RECALCULATE_METRICS,
-                AVCC_EXTRA_DATA,
+                WebCamMediaSourceConfiguration.CODEC_PRIVATE_DATA_800x600_30,
                 new Tag[] {
                         new Tag("device", webCamMediaSourceConfiguration.getMediaSourceDescription()),
                         new Tag("stream", kinesisVideoStreamName)

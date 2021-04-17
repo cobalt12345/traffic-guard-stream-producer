@@ -11,11 +11,14 @@ sources:
     webcam:
         device:
             description: "Desktop PC Web Camera"
-            fps: 25
+            fps: 30
 #            name: "Logitech HD Webcam C270 0"
 #            name: "GENERAL - UVC  1"
-            name: "Logitech HD Webcam C270 1"
-            resolution: VGA
+            name: "USB Video Device 1"
+#            name: "Hercules Dualpix Exchange 1"
+#            resolution: VGA
+            resolution: SVGA
+#            resolution: XGA
             type: PC Cam
         queue_length: 100
         use_default_when_no_specified_cam_found: false

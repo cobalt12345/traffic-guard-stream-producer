@@ -109,6 +109,12 @@
             <version>5.3.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>amazon-kinesis-video-streams-parser-library</artifactId>
+            <version>1.0.15</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

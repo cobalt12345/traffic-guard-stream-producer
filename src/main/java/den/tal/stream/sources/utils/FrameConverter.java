@@ -28,8 +28,6 @@ public class FrameConverter {
         log.debug("Use color space: {}", colorSpace);
     }
 
-    private static final long FRAME_DURATION_20_MS = 20L;
-
     private WebCamMediaSourceConfiguration configuration;
 
     public FrameConverter(WebCamMediaSourceConfiguration configuration) {
@@ -40,14 +38,14 @@ public class FrameConverter {
         Picture picture = AWTUtil.fromBufferedImage(image, colorSpace);
         int buffSize = encoder.estimateBufferSize(picture);
         ByteBuffer byteBuffer = ByteBuffer.allocate(buffSize);
-        ByteBuffer encodedBytes = encoder.encodeIDRFrame(picture, byteBuffer);
+        ByteBuffer encodedBytes = encoder.encodeFrame(picture, byteBuffer).getData();
         final long currentTimeMs = System.currentTimeMillis();
         final int flag = counter % configuration.getFps() == 0 ? FRAME_FLAG_KEY_FRAME : FRAME_FLAG_NONE;
         KinesisVideoFrame kinesisVideoFrame = new KinesisVideoFrame(counter,
                 flag,
                 currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
-                FRAME_DURATION_20_MS * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
+                configuration.getFrameDurationInMS() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 encodedBytes);
 
         return kinesisVideoFrame;
