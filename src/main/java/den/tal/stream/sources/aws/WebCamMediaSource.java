@@ -79,7 +79,7 @@ public class WebCamMediaSource implements MediaSource {
                 DEFAULT_STALENESS_DURATION,
                 DEFAULT_TIMESCALE,
                 RECALCULATE_METRICS,
-                WebCamMediaSourceConfiguration.CODEC_PRIVATE_DATA_800x600_30,
+                WebCamMediaSourceConfiguration.CODEC_PRIVATE_DATA_640x480_25,
                 new Tag[] {
                         new Tag("device", webCamMediaSourceConfiguration.getMediaSourceDescription()),
                         new Tag("stream", kinesisVideoStreamName)
