@@ -95,7 +95,7 @@ public class WebCam implements Source {
             while (true) {
                 filmingStarted.lock();
                 try {
-                    log.debug("Shoot", threadName);
+                    log.debug("{} Shoot", threadName);
                     if (bufferedImages.remainingCapacity() > 0) {
                         bufferedImages.offer(webcam.getImage());
                     } else {
