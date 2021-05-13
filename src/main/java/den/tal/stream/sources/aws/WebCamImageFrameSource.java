@@ -64,6 +64,7 @@ public class WebCamImageFrameSource {
             int frameIndex = 0;
             while (isRunning) {
                 log.debug("Project frame");
+                //don't use
                 BufferedImage image = film.poll();
                 if (null != image) {
                     try {
